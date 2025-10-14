@@ -8,18 +8,18 @@ function UserList({ users, onUserClick }) {
       <Alert variant="info">
         No users found matching your search criteria.
       </Alert>
-      <raw>
-          {users.map(user => (
-            <Col ClassName= md={6} lg={4} mb-4>
-              <UserCard user={user} onUserClick={onUserClick} />
-            </Col> 
-          ))}
-      </raw>
-     
-
-    )
+    );
   }
 
+  return (
+    <Row>
+      {users.map(user => (
+        <Col key={user.id} md={6} lg={4} className="mb-4">
+          <UserCard user={user} onUserClick={onUserClick} />
+        </Col>
+      ))}
+    </Row>
+  );
 }
 
 export default UserList
