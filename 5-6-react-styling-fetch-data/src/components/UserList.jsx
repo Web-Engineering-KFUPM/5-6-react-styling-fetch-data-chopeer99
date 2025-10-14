@@ -5,9 +5,18 @@ import UserCard from './UserCard'
 function UserList({ users, onUserClick }) {
   if (users.length === 0) {
     return (
-      <Alert>
+      <Alert variant="info">
         No users found matching your search criteria.
       </Alert>
+      <raw>
+          {users.map(user => (
+            <Col ClassName= md={6} lg={4} mb-4>
+              <UserCard user={user} onUserClick={onUserClick} />
+            </Col> 
+          ))}
+      </raw>
+     
+
     )
   }
 

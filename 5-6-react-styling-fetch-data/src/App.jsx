@@ -340,7 +340,7 @@ function App() {
     <div className="app">
       <header className="bg-primary text-white py-3 mb-4 shadow">
         <Container>
-          <h1 className="mb-0">User Management Dashboard</h1>
+          <h1 className="h2 mb-0">User Management Dashboard</h1>
           <p className="mb-0 opacity-75">Manage and view user information</p>
         </Container>
       </header>
