@@ -323,21 +323,62 @@ import SearchBar from './components/SearchBar'
 import UserModal from './components/UserModal'
 
 function App() {
+  // TODO 3.2: Create State Variables
   const [users, setUsers] = useState([])
+  const [filteredUsers, setFilteredUsers] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [showModal, setShowModal] = useState(false)
+  const [selectedUser, setSelectedUser] = useState(null)
 
+  // TODO 3.3: Fetch User Data from API
   useEffect(() => {
-    {/*API fetch logic*/}
+    const fetchUsers = async () => {
+      setLoading(true)
+      try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/users')
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        const data = await response.json()
+        setUsers(data)
+        setFilteredUsers(data) // Initial state: show all users
+      } catch (err) {
+        setError(err.message)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchUsers()
+  }, []) // Empty dependency array means this runs only once on mount
 
-  }, [])
+  // TODO 3.4: Filter Users by Search
+  useEffect(() => {
+    if (searchTerm === '') {
+      setFilteredUsers(users)
+    } else {
+      const filtered = users.filter(user =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      setFilteredUsers(filtered)
+    }
+  }, [searchTerm, users])
 
+  // TODO 3.5: Open and close the user modal
   const handleUserClick = (user) => {
+    setSelectedUser(user)
+    setShowModal(true)
   }
 
   const handleCloseModal = () => {
+    setShowModal(false)
+    setSelectedUser(null)
   }
 
   return (
     <div className="app">
+      {/* TODO 1.1 & 1.2: Style the Header Section */}
       <header className="bg-primary text-white py-3 mb-4 shadow">
         <Container>
           <h1 className="h2 mb-0">User Management Dashboard</h1>
@@ -346,15 +387,33 @@ function App() {
       </header>
 
       <Container className="shadow-sm mb-3">
-        <SearchBar />
+        <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
 
-        {/* {loading && <Spinner ... />} */}
-        {/* {error && <Alert ...>{error}</Alert>} */}
-        {/* <UserList users={filteredUsers} onUserClick={handleUserClick} /> */}
+        {/* TODO 3.6: Handle Loading and Error States */}
+        {loading && (
+          <div className="text-center my-5">
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
+        )}
+        {error && <Alert variant="danger" className="my-3">{`Error: ${error}`}</Alert>}
 
-        <UserModal />
+        {/* Only show UserList if not loading and no critical error */}
+        {!loading && !error && (
+          // TODO 3.7: Display Data (UserList)
+          <UserList users={filteredUsers} onUserClick={handleUserClick} />
+        )}
+
+        {/* TODO 3.7: Display Data (UserModal) */}
+        <UserModal
+          show={showModal}
+          user={selectedUser}
+          onHide={handleCloseModal}
+        />
       </Container>
 
+      {/* TODO 1.7: Add Footer */}
       <footer className="bg-light py-4 mt-5">
         <Container>
           <p className="text-center text-muted mb-0">
