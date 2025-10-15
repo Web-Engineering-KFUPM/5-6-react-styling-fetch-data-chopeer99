@@ -1,6 +1,7 @@
 /* Custom CSS Variables */
 
 :root {
+  /* TODO 2.1: Define Theme Colors */
   --primary-color: #0d6efd;
   --secondary-color: #6c757d;
   --light-color: #f8f9fa;
@@ -8,55 +9,68 @@
 }
 
 
+/* TODO 2.2: Style Main App Container */
 .app {
   background-color: var(--light-color);
   min-height: 100vh;
 }
 
+/* TODO 2.3: Style User Card */
 .user-card {
   border: none;
   background-color: white;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
+/* TODO 2.4: Add Hover Effect to User Card */
 .user-card:hover {
-  
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+/* TODO 2.5: Create Circular Avatars - Small Avatar */
 .user-avatar {
-  
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* TODO 2.5: Create Circular Avatars - Large Avatar */
 .user-avatar-large {
-  
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
 }
 
 /* Bootstrap overrides */
-.btn-primary {
-  
-}
+.btn-primary {}
 
-.btn-primary:hover {
-  
-}
+.btn-primary:hover {}
 
-/* Responsive adjustments */
+/* TODO 2.6: Make Layout Responsive */
 @media (max-width: 768px) {
   .user-avatar {
-    
-  }
-  
-  .display-4 {
-    
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
   }
 }
 
 /* Custom card header styling */
-.card-header {
-  
-}
+.card-header {}
 
 /* Custom alert styling */
-.alert {
-  
-}
+.alert {}

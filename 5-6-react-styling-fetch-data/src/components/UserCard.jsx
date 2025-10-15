@@ -3,21 +3,27 @@ import { Card, Button } from 'react-bootstrap'
 
 function UserCard({ user, onUserClick }) {
   return (
-    <Card className="user-card">
+    <Card className="user-card shadow-sm">
       <Card.Body>
-        <div>
-          <div className="user-avatar">
+        <div className="d-flex align-items-center mb-3">
+          <div className="user-avatar me-3">
             {user.name.charAt(0)}
+          </div>
+          <div>
+            <Card.Title className="mb-0">{user.name}</Card.Title>
+            <Card.Text className="text-muted">@{user.username}</Card.Text>
           </div>
         </div>
 
-        <Card.Title>{user.name}</Card.Title>
         <Card.Text>
-          <strong>Username:</strong> {user.username}<br />
-          <strong>Email:</strong> {user.email}<br />
-          <strong>Phone:</strong> {user.phone}
+          <small>
+            <strong>Email:</strong> {user.email}<br />
+            <strong>Phone:</strong> {user.phone}
+          </small>
         </Card.Text>
-        <Button variant="primary" onClick={() => onUserClick(user)}>
+        
+        {/* TODO 1.5: Add Button */}
+        <Button variant="primary" onClick={() => onUserClick(user)} className="mt-2">
           View Details
         </Button>
       
